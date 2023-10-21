@@ -18,7 +18,7 @@ let package = Package(
         
     products:
     [
-        .library(name:"BXSwiftUtils", targets:["BXSwiftUtils"]),
+        .library(name:"BXSwiftUtils", targets:["BXSwiftUtils", "BXSwiftUtilsObjC"]),
     ],
     
 	// Dependencies declare other packages that this package depends on
@@ -33,7 +33,8 @@ let package = Package(
 
     targets:
     [
-        .target(name:"BXSwiftUtils", dependencies:[]),
+        .target(name:"BXSwiftUtilsObjC", dependencies:[]),
+        .target(name:"BXSwiftUtils", dependencies:["BXSwiftUtilsObjC"]),
 //		.testTarget( name:"BXMediaBrowserTests", dependencies:["BXMediaBrowser"]),
     ]
 )

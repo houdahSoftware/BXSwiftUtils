@@ -8,6 +8,7 @@
 
 
 import Foundation
+import BXSwiftUtilsObjC
 
 #if canImport(Combine)
 import Combine
