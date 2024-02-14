@@ -49,6 +49,8 @@
 		48C3DF6820E10E2400359288 /* TypedKVO+propagateChangesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C3DF6720E10E2400359288 /* TypedKVO+propagateChangesTests.swift */; };
 		48D9E36121A6B75E0057B930 /* Comparable+ClipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D9E36021A6B75E0057B930 /* Comparable+ClipTests.swift */; };
 		48DA8193206A4E9C009D1E6C /* KVOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DA8192206A4E9C009D1E6C /* KVOTests.swift */; };
+		48DA8199206A50DB009D1E6C /* NSException+ToSwiftError.h in Headers */ = {isa = PBXBuildFile; fileRef = 48DA8196206A50DB009D1E6C /* NSException+ToSwiftError.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		48DA819B206A50DB009D1E6C /* NSException+ToSwiftError.m in Sources */ = {isa = PBXBuildFile; fileRef = 48DA8197206A50DB009D1E6C /* NSException+ToSwiftError.m */; };
 		48DA819E206A5268009D1E6C /* NSException+ToSwiftErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DA819D206A5268009D1E6C /* NSException+ToSwiftErrorTests.swift */; };
 		48DA81A6206B8154009D1E6C /* KVOTestsObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 48DA81A5206B8154009D1E6C /* KVOTestsObjC.m */; };
 		48DA81D1206BCD92009D1E6C /* Collection+Pluck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DA81CF206BCD92009D1E6C /* Collection+Pluck.swift */; };
@@ -58,8 +60,6 @@
 		48DF72F520697E1E00D224AA /* TypedKVOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DF72F420697E1E00D224AA /* TypedKVOTests.swift */; };
 		48FF9BC820E116B100024C10 /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FF9BC620E116B100024C10 /* Weak.swift */; };
 		48FF9BCA20E1174C00024C10 /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FF9BC920E1174C00024C10 /* Weak.swift */; };
-		8F4F93D02AE46C1600C1D23B /* NSException+ToSwiftError.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4F93CF2AE46C1600C1D23B /* NSException+ToSwiftError.m */; };
-		8F4F93D22AE46C1B00C1D23B /* NSException+ToSwiftError.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F4F93D12AE46C1B00C1D23B /* NSException+ToSwiftError.h */; };
 		95CBED9321A5B4D100344220 /* Comparable+Clip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CBED9221A5B4D100344220 /* Comparable+Clip.swift */; };
 		95F2DBA821B7DD9000865AE4 /* Bool+Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F2DBA721B7DD9000865AE4 /* Bool+Operators.swift */; };
 		95F2DBAB21B7E3FE00865AE4 /* Bool+OperatorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F2DBA921B7E3C200865AE4 /* Bool+OperatorsTests.swift */; };
@@ -128,6 +128,7 @@
 		D08F44E32170A4850060FBAE /* URL+ExtendedAttributesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08F44E22170A4850060FBAE /* URL+ExtendedAttributesTests.swift */; };
 		D08FAA7F22BA17A4001D05D2 /* BXNetwork+isReachable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08FAA7E22BA17A4001D05D2 /* BXNetwork+isReachable.swift */; };
 		D099AA4526B7C96800EFA1BC /* Dictionary+Accessors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D099AA4426B7C96800EFA1BC /* Dictionary+Accessors.swift */; };
+		D09B34402B0CF8330082C906 /* Collection+Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09B343F2B0CF8330082C906 /* Collection+Math.swift */; };
 		D09FF4E925C97EFF00C58119 /* Host+macAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09FF4E825C97EFF00C58119 /* Host+macAddress.swift */; };
 		D0A4F1132552A43B00FAEBD8 /* Int+localizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A4F1122552A43B00FAEBD8 /* Int+localizedString.swift */; };
 		D0A740AE22E880CF00145203 /* Collection+Union.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A740AD22E880CF00145203 /* Collection+Union.swift */; };
@@ -224,6 +225,8 @@
 		48C3DF6720E10E2400359288 /* TypedKVO+propagateChangesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TypedKVO+propagateChangesTests.swift"; sourceTree = "<group>"; };
 		48D9E36021A6B75E0057B930 /* Comparable+ClipTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comparable+ClipTests.swift"; sourceTree = "<group>"; };
 		48DA8192206A4E9C009D1E6C /* KVOTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KVOTests.swift; sourceTree = "<group>"; };
+		48DA8196206A50DB009D1E6C /* NSException+ToSwiftError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSException+ToSwiftError.h"; path = "../../../C/NSException+ToSwiftError.h"; sourceTree = "<group>"; };
+		48DA8197206A50DB009D1E6C /* NSException+ToSwiftError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NSException+ToSwiftError.m"; path = "../../../C/NSException+ToSwiftError.m"; sourceTree = "<group>"; };
 		48DA819D206A5268009D1E6C /* NSException+ToSwiftErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSException+ToSwiftErrorTests.swift"; sourceTree = "<group>"; };
 		48DA81A5206B8154009D1E6C /* KVOTestsObjC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KVOTestsObjC.m; sourceTree = "<group>"; };
 		48DA81CF206BCD92009D1E6C /* Collection+Pluck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Pluck.swift"; sourceTree = "<group>"; };
@@ -233,8 +236,6 @@
 		48DF72F420697E1E00D224AA /* TypedKVOTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypedKVOTests.swift; sourceTree = "<group>"; };
 		48FF9BC620E116B100024C10 /* Weak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weak.swift; sourceTree = "<group>"; };
 		48FF9BC920E1174C00024C10 /* Weak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weak.swift; sourceTree = "<group>"; };
-		8F4F93CF2AE46C1600C1D23B /* NSException+ToSwiftError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSException+ToSwiftError.m"; path = "Sources/BXSwiftUtilsObjC/NSException+ToSwiftError.m"; sourceTree = SOURCE_ROOT; };
-		8F4F93D12AE46C1B00C1D23B /* NSException+ToSwiftError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSException+ToSwiftError.h"; path = "Sources/BXSwiftUtilsObjC/include/NSException+ToSwiftError.h"; sourceTree = SOURCE_ROOT; };
 		95CBED9221A5B4D100344220 /* Comparable+Clip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comparable+Clip.swift"; sourceTree = "<group>"; };
 		95F2DBA721B7DD9000865AE4 /* Bool+Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Operators.swift"; sourceTree = "<group>"; };
 		95F2DBA921B7E3C200865AE4 /* Bool+OperatorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+OperatorsTests.swift"; sourceTree = "<group>"; };
@@ -307,6 +308,7 @@
 		D08F44E22170A4850060FBAE /* URL+ExtendedAttributesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+ExtendedAttributesTests.swift"; sourceTree = "<group>"; };
 		D08FAA7E22BA17A4001D05D2 /* BXNetwork+isReachable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BXNetwork+isReachable.swift"; sourceTree = "<group>"; };
 		D099AA4426B7C96800EFA1BC /* Dictionary+Accessors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Accessors.swift"; sourceTree = "<group>"; };
+		D09B343F2B0CF8330082C906 /* Collection+Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Math.swift"; sourceTree = "<group>"; };
 		D09FF4E825C97EFF00C58119 /* Host+macAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Host+macAddress.swift"; sourceTree = "<group>"; };
 		D0A4F1122552A43B00FAEBD8 /* Int+localizedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+localizedString.swift"; sourceTree = "<group>"; };
 		D0A740AD22E880CF00145203 /* Collection+Union.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Union.swift"; sourceTree = "<group>"; };
@@ -492,6 +494,7 @@
 				D0E6B50924DDB5D000369C24 /* Array+HeterogenousDecoding.swift */,
 				487E641D20A0A659007C4A8A /* Collection+Flatten.swift */,
 				D0A740AD22E880CF00145203 /* Collection+Union.swift */,
+				D09B343F2B0CF8330082C906 /* Collection+Math.swift */,
 				D0CB5DC32A5FD3B60024C70F /* Collection+UniqueValue.swift */,
 				48DE068920876612000246CD /* Dictionary+EnumKeys.swift */,
 				481BE6D22098362C00F12EDF /* Sequence+CompactMap.swift */,
@@ -607,8 +610,8 @@
 			isa = PBXGroup;
 			children = (
 				D04BEB792683AA3800ABCF04 /* BXLocalizedError.swift */,
-				8F4F93D12AE46C1B00C1D23B /* NSException+ToSwiftError.h */,
-				8F4F93CF2AE46C1600C1D23B /* NSException+ToSwiftError.m */,
+				48DA8196206A50DB009D1E6C /* NSException+ToSwiftError.h */,
+				48DA8197206A50DB009D1E6C /* NSException+ToSwiftError.m */,
 			);
 			path = "Errors & Exceptions";
 			sourceTree = "<group>";
@@ -843,8 +846,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48DA8199206A50DB009D1E6C /* NSException+ToSwiftError.h in Headers */,
 				4875F27920529A0C009985EC /* BXSwiftUtils.h in Headers */,
-				8F4F93D22AE46C1B00C1D23B /* NSException+ToSwiftError.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -903,7 +906,7 @@
 					};
 					4875F25E205299A6009985EC = {
 						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 1410;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1056,8 +1059,10 @@
 				487A39CE2069174E007BEC66 /* TypedKVO.swift in Sources */,
 				D06CC9232178C5F9009C2991 /* Data+Mutation.swift in Sources */,
 				D0EA52DB20F8992300A0EF6D /* MTKTextureLoader+New.swift in Sources */,
+				48DA819B206A50DB009D1E6C /* NSException+ToSwiftError.m in Sources */,
 				D0839A70280EF42C00D2F64E /* FloatingPoint+Safety.swift in Sources */,
 				D09FF4E925C97EFF00C58119 /* Host+macAddress.swift in Sources */,
+				D09B34402B0CF8330082C906 /* Collection+Math.swift in Sources */,
 				D0F6B74C2455C1B0004EC894 /* Optional+logDescription.swift in Sources */,
 				D015BC4D280DAD7F00CCB1E2 /* FloatingPoint+isEqual.swift in Sources */,
 				487107F020A9B8E000120024 /* BXAtomic.swift in Sources */,
@@ -1133,7 +1138,6 @@
 				D086A26021B95CD000ACF9CA /* CMTime+Logging.swift in Sources */,
 				485E0CF120B580CD001F2247 /* DispatchQueue+Main.swift in Sources */,
 				489E56AD2052CC800071BBF1 /* Synchronized.swift in Sources */,
-				8F4F93D02AE46C1600C1D23B /* NSException+ToSwiftError.m in Sources */,
 				D0E8881127AA8D6100310BB9 /* Date+Formatted.swift in Sources */,
 				D0E5EB9C24E690FA009E1385 /* URL+Metadata.swift in Sources */,
 				481A25BE2175D36000FB8E9A /* CGPath+RoundedRect.swift in Sources */,
@@ -1318,8 +1322,7 @@
 				PRODUCT_NAME = BXSwiftUtils;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Werror=nonnull",
@@ -1347,8 +1350,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.boinx.BXSwiftUtils;
 				PRODUCT_NAME = BXSwiftUtils;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 				VALIDATE_PRODUCT = YES;
 				WARNING_CFLAGS = (
 					"-Wall",

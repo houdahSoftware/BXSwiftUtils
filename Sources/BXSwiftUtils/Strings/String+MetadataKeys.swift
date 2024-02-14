@@ -31,7 +31,7 @@ import Foundation
 
 // Since the following constants are not available on iOS we'll define them for cross-platform code
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 
 public let kMDItemFSSize = "kMDItemFSSize" as CFString
 public let kMDItemKind = "kMDItemKind" as CFString
@@ -99,6 +99,7 @@ public extension String
 	
 	static var widthKey = kMDItemPixelWidth as String
 	static var heightKey = kMDItemPixelHeight as String
+	static var orientationKey = "Orientation"
 	static var profileNameKey = kMDItemProfileName as String //"ProfileName"
 	static var modelKey = kMDItemColorSpace as String //"Model"
 
@@ -108,7 +109,7 @@ public extension String
 	static var exifISOSpeedKey = kMDItemISOSpeed as String
 	static var exifCaptureDateKey = "DateTimeOriginal"
 
-	static var alititudeKey = kMDItemAltitude as String
+	static var altitudeKey = kMDItemAltitude as String
 	static var latitudeKey = kMDItemLatitude as String
 	static var longitudeKey = kMDItemLongitude as String
 	static var locationNameKey = kMDItemNamedLocation as String
@@ -163,7 +164,7 @@ public extension String
 //	static var exifISOSpeedKey = "kMDItemISOSpeed"
 //	static var exifCaptureDateKey = "DateTimeOriginal"
 //
-//	static var alititudeKey = "kMDItemAltitude"
+//	static var altitudeKey = "kMDItemAltitude"
 //	static var latitudeKey = "kMDItemLatitude"
 //	static var longitudeKey = "kMDItemLongitude"
 //	static var locationNameKey = "kMDItemNamedLocation"

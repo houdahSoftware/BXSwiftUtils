@@ -869,12 +869,12 @@ public extension UndoManager
 
 // When running on moderns systems, provide compatibilty with SwiftUI
 
-@available(macOS 10.15, iOS 13, *) extension BXUndoManager : ObservableObject
+@available(macOS 10.15, iOS 13, tvOS 13.0, *) extension BXUndoManager : ObservableObject
 {
 
 }
 
-@available(macOS 10.15, iOS 13, *) extension BXUndoManager.Group : ObservableObject
+@available(macOS 10.15, iOS 13, tvOS 13.0, *) extension BXUndoManager.Group : ObservableObject
 {
 
 }
@@ -883,7 +883,7 @@ public extension BXUndoManager
 {
 	@objc func publishObjectWillChange()
 	{
-		if #available(macOS 10.15, iOS 13, *)
+		if #available(macOS 10.15, iOS 13, tvOS 13.0, *)
 		{
 			DispatchQueue.main.asyncIfNeeded
 			{
@@ -897,7 +897,7 @@ public extension BXUndoManager.Group
 {
 	@objc func publishObjectWillChange()
 	{
-		if #available(macOS 10.15, iOS 13, *)
+		if #available(macOS 10.15, iOS 13, tvOS 13.0, *)
 		{
 			DispatchQueue.main.asyncIfNeeded
 			{

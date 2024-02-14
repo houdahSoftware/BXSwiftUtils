@@ -2,7 +2,7 @@
 //
 //  MTKTextureLoader+New.swift
 //	Adds convenience methods
-//  Copyright ©2018 Peter Baumgartner. All rights reserved.
+//  Copyright ©2018-2023 Peter Baumgartner. All rights reserved.
 //
 //**********************************************************************************************************************
 
@@ -10,6 +10,7 @@
 import Metal
 import MetalKit
 import CoreGraphics
+import MetalPerformanceShaders
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -39,7 +40,7 @@ extension MTKTextureLoader
 
 	/// Loads a texture from an image
 	
-	public static func newTexture(image:CGImage, device:MTLDevice, allowSRGB:Bool = false, textureUsage:MTLTextureUsage = .shaderRead, storageMode:MTLStorageMode = .private, mipmap:Bool = false) throws -> MTLTexture
+	public static func newTexture(image:CGImage, device:MTLDevice, allowSRGB:Bool = false, textureUsage:MTLTextureUsage = .shaderRead, storageMode:MTLStorageMode = .private, mipmap:Bool = false, blur:Double = 0.0) throws -> MTLTexture
 	{
 		let options:[MTKTextureLoader.Option:NSObject] = self.createOptions(
 			allowSRGB:allowSRGB,
@@ -49,6 +50,7 @@ extension MTKTextureLoader
 
 		let loader = MTKTextureLoader(device:device)
 		let texture = try loader.newTexture(cgImage:image,options:options)
+		
 		return texture
 	}
 
@@ -66,7 +68,7 @@ extension MTKTextureLoader
         if mipmap
         {
             options[MTKTextureLoader.Option.allocateMipmaps] = true as NSNumber
-            options[MTKTextureLoader.Option.generateMipmaps] = true as NSNumber
+//            options[MTKTextureLoader.Option.generateMipmaps] = true as NSNumber
         }
 		
 		return options
