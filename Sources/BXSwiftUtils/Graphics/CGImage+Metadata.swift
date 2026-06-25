@@ -192,6 +192,56 @@ public extension CGImage
 		self.colorSpace?.isEDR ?? false
 	}
 	
+	/// Returns true if the image is effectively all-black.
+	///
+	/// This is used to detect broken embedded thumbnails: new iOS 26 HDR images (Display P3 + PQ with an
+	/// "Adaptive Gain Curve" gain map) ship an embedded EXIF thumbnail that decodes to pure black. Such a
+	/// thumbnail has to be discarded and regenerated from the hires image data instead.
+	///
+	/// The image is downsampled into a tiny 8x8 sRGB bitmap and then we check whether every pixel is exactly
+	/// zero. This is very cheap (~2µs, i.e. far below the cost of creating the thumbnail in the first place),
+	/// and the strict ==0 test avoids misclassifying genuinely dark (but not black) photos.
+
+	func isAllBlack() -> Bool
+	{
+		let w = min(self.width,8)
+		let h = min(self.height,8)
+		guard w > 0, h > 0 else { return false }
+		guard let sRGB = CGColorSpace(name:CGColorSpace.sRGB) else { return false }
+
+		let bytesPerRow = w * 4
+		var pixels = [UInt8](repeating:0, count:bytesPerRow*h)
+
+		let success:Bool = pixels.withUnsafeMutableBytes
+		{
+			buffer in
+
+			guard let baseAddress = buffer.baseAddress else { return false }
+			guard let context = CGContext(
+				data:baseAddress,
+				width:w,
+				height:h,
+				bitsPerComponent:8,
+				bytesPerRow:bytesPerRow,
+				space:sRGB,
+				bitmapInfo:CGImageAlphaInfo.premultipliedLast.rawValue) else { return false }
+
+			context.draw(self, in:CGRect(x:0, y:0, width:w, height:h))
+			return true
+		}
+
+		guard success else { return false }
+
+		// Inspect the RGB samples (skip the alpha byte). If any sample is non-zero the image is not black.
+
+		for i in 0 ..< (w*h)
+		{
+			if pixels[i*4] > 0 || pixels[i*4+1] > 0 || pixels[i*4+2] > 0 { return false }
+		}
+
+		return true
+	}
+
 	/// Returns true if this image has an alpha channel
 	
 	var hasAlpha:Bool
