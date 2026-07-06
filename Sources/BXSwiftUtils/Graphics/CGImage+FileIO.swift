@@ -170,13 +170,22 @@ public extension CGImage
 
 	/// Saves the image to a file of specified type and quality.
 	
-	@discardableResult func save(to url:URL, type:CFString=kUTTypeJPEG, quality:Double=0.8) -> Bool
+	@discardableResult func save(to url:URL, type:CFString=kUTTypeJPEG, quality:Double=0.8, orientation:Int? = nil) -> Bool
 	{
 		var success = false
 		
 		if let dst = CGImageDestinationCreateWithURL(url as CFURL,type,1,nil)
 		{
-			let properties = [ kCGImageDestinationLossyCompressionQuality as String : quality ]
+			var properties:[String:Any] = [ kCGImageDestinationLossyCompressionQuality as String : quality ]
+
+			// A CGImage always contains the raw (non-rotated) pixels. If the caller knows that these pixels
+			// should be displayed at a different orientation, then store this EXIF orientation in the file.
+
+			if let orientation = orientation, orientation > 0
+			{
+				properties[kCGImagePropertyOrientation as String] = orientation
+			}
+
 			CGImageDestinationAddImage(dst,self,properties as CFDictionary)
 			success = CGImageDestinationFinalize(dst)
 		}
