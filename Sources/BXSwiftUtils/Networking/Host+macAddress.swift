@@ -92,7 +92,7 @@ extension Host
 		matchingDict["IOPropertyMatch"] = [ "IOPrimaryInterface" : true]
 
 		var matchingServices : io_iterator_t = 0
-		if IOServiceGetMatchingServices(kIOMasterPortDefault, matchingDict, &matchingServices) != KERN_SUCCESS
+		if IOServiceGetMatchingServices(kIOMainPortDefault, matchingDict, &matchingServices) != KERN_SUCCESS
 		{
 			return nil
 		}
