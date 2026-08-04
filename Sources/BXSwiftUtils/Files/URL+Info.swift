@@ -9,6 +9,7 @@
 
 import Foundation
 import Darwin
+import UniformTypeIdentifiers
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -270,7 +271,17 @@ extension URL
 			return nil
 		}
 	}
- 
+
+
+	/// Returns the UTType of a file URL. This is the modern counterpart to uti. It is nil if the file
+	/// has an unknown (i.e. unregistered) type.
+
+	public var UTType:UTType?
+	{
+		guard let uti = self.uti else { return nil }
+		return UniformTypeIdentifiers.UTType(uti)
+	}
+
  	/// Returns the fileSize in bytes
 	
 	public var fileSize: Int?
