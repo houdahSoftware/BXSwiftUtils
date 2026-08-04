@@ -21,9 +21,7 @@ import UIKit
 import CoreGraphics
 #endif
 
-#if os(iOS)
-import MobileCoreServices
-#endif
+import UniformTypeIdentifiers
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -38,9 +36,9 @@ public extension CGImage
 	
 	class func load(from url:URL, wantsEDR:Bool = false) -> CGImage?
 	{
-		guard let uti = url.uti else { return nil }
+		guard let type = url.UTType else { return nil }
 		
-		if UTTypeConformsTo(uti as CFString,kUTTypePDF)
+		if type.conforms(to:.pdf)
 		{
 			return loadPDF(from:url)
 		}
@@ -153,11 +151,11 @@ public extension CGImage
 
 	/// Returns an opaque data buffer that can be written to a file or an archive.
 	
-	func data(type:CFString=kUTTypeJPEG, quality:Double=0.5) -> Data
+	func data(type:String = UTType.jpeg.identifier, quality:Double=0.5) -> Data
 	{
 		let data = NSMutableData()
 		
-		if let dst = CGImageDestinationCreateWithData(data,type,1,nil)
+		if let dst = CGImageDestinationCreateWithData(data,type as CFString,1,nil)
 		{
 			let properties = [ kCGImageDestinationLossyCompressionQuality as String : quality ]
 			CGImageDestinationAddImage(dst,self,properties as CFDictionary)
@@ -170,11 +168,11 @@ public extension CGImage
 
 	/// Saves the image to a file of specified type and quality.
 	
-	@discardableResult func save(to url:URL, type:CFString=kUTTypeJPEG, quality:Double=0.8, orientation:Int? = nil) -> Bool
+	@discardableResult func save(to url:URL, type:String = UTType.jpeg.identifier, quality:Double=0.8, orientation:Int? = nil) -> Bool
 	{
 		var success = false
 		
-		if let dst = CGImageDestinationCreateWithURL(url as CFURL,type,1,nil)
+		if let dst = CGImageDestinationCreateWithURL(url as CFURL,type as CFString,1,nil)
 		{
 			var properties:[String:Any] = [ kCGImageDestinationLossyCompressionQuality as String : quality ]
 

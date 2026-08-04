@@ -31,32 +31,28 @@ public extension URL
 	
 	var isImageFile:Bool
 	{
-		guard let uti = self.uti else { return false }
-		return UTTypeConformsTo(uti as CFString, kUTTypeImage)
+		self.UTType?.conforms(to:.image) ?? false
 	}
 
 	/// Returns true if this is a PDF file
 	
 	var isPDFFile:Bool
 	{
-		guard let uti = self.uti else { return false }
-		return UTTypeConformsTo(uti as CFString, kUTTypePDF)
+		self.UTType?.conforms(to:.pdf) ?? false
 	}
 
 	/// Returns true if this is an audio file
 	
 	var isAudioFile:Bool
 	{
-		guard let uti = self.uti else { return false }
-		return UTTypeConformsTo(uti as CFString, kUTTypeAudio)
+		self.UTType?.conforms(to:.audio) ?? false
 	}
 	
 	/// Returns true if this is a video file
 	
 	var isVideoFile:Bool
 	{
-		guard let uti = self.uti else { return false }
-		return UTTypeConformsTo(uti as CFString, kUTTypeMovie)
+		self.UTType?.conforms(to:.movie) ?? false
 	}
 
     /// Returns true if the file at the specified URL is an Apple Loop file that cannot be used because it is
