@@ -558,33 +558,33 @@ internal class _NSSelectionProxy : NSObject
 	}
 	
 	
-	/// Returns the (common) value of all selected objects. If there is no common value then NSMultipleValuesMarker
-	/// will be returned instead.
-	
+	/// Returns the (common) value of all selected objects. If there is no common value then
+	/// BXSelectionMarker.multipleValues will be returned instead.
+
 	override func value(forKeyPath keyPath:String) -> Any?
 	{
 		guard let controller = arrayController
-		else { return NSNoSelectionMarker }
+		else { return BXSelectionMarker.noSelection }
 
 		guard let selectedObjects = controller.selectedObjects as? [NSObject]
-		else { return NSNoSelectionMarker }
-		
+		else { return BXSelectionMarker.noSelection }
+
 		let alwaysUsesMultipleValuesMarker = controller.alwaysUsesMultipleValuesMarker
 		var uniqueValue:Any? = nil
-		
+
 		for object in selectedObjects
 		{
 			let value = object.value(forKeyPath:keyPath)
-			
+
 			if uniqueValue != nil && value != nil
 			{
 				if alwaysUsesMultipleValuesMarker
 				{
-					return NSMultipleValuesMarker
+					return BXSelectionMarker.multipleValues
 				}
 				else if !isEqual(uniqueValue!,value!)
 				{
-					return NSMultipleValuesMarker
+					return BXSelectionMarker.multipleValues
 				}
 			}
 			else
@@ -600,27 +600,27 @@ internal class _NSSelectionProxy : NSObject
 	override func value(forKey key:String) -> Any?
 	{
 		guard let controller = arrayController
-		else { return NSNoSelectionMarker }
+		else { return BXSelectionMarker.noSelection }
 
 		guard let selectedObjects = controller.selectedObjects as? [NSObject]
-		else { return NSNoSelectionMarker }
-		
+		else { return BXSelectionMarker.noSelection }
+
 		let alwaysUsesMultipleValuesMarker = controller.alwaysUsesMultipleValuesMarker
 		var uniqueValue:Any? = nil
-		
+
 		for object in selectedObjects
 		{
 			let value = object.value(forKey:key)
-			
+
 			if uniqueValue != nil && value != nil
 			{
 				if alwaysUsesMultipleValuesMarker
 				{
-					return NSMultipleValuesMarker
+					return BXSelectionMarker.multipleValues
 				}
 				else if !isEqual(uniqueValue!,value!)
 				{
-					return NSMultipleValuesMarker
+					return BXSelectionMarker.multipleValues
 				}
 			}
 			else

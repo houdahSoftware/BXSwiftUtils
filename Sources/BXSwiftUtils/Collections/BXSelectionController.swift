@@ -333,14 +333,14 @@ open class BXSelectionController : NSObject
 
 
 	/// Gets the value from all selected objects. If the value is unique it will be returned, otherwise
-	/// NSMultipleValuesMarker will be returned.
-	
+	/// BXSelectionMarker.multipleValues will be returned.
+
 	override open func value(forKey _key:String) -> Any?
 	{
 		let key = _key.strippingSelectionPrefix()
 		if key == "selection" { return self }
 		var uniqueValue: Any? = nil
-		
+
 		for object in self.selectedObjects
 		{
 			if let value = object.value(forKey:key)
@@ -351,7 +351,7 @@ open class BXSelectionController : NSObject
 				}
 				else if let value1 = uniqueValue as? NSObject, let value2 = value as? NSObject, !value1.isEqual(value2)
 				{
-					return NSMultipleValuesMarker
+					return BXSelectionMarker.multipleValues
 				}
 			}
 		}
@@ -361,14 +361,14 @@ open class BXSelectionController : NSObject
 	
 	
 	/// Gets the value from all selected objects. If the value is unique it will be returned, otherwise
-	/// NSMultipleValuesMarker will be returned.
-	
+	/// BXSelectionMarker.multipleValues will be returned.
+
 	override open func value(forKeyPath _keyPath:String) -> Any?
 	{
 		let keyPath = _keyPath.strippingSelectionPrefix()
 		if keyPath == "selection" { return self }
 		var uniqueValue: Any? = nil
-		
+
 		for object in self.selectedObjects
 		{
 			if let value = object.value(forKeyPath:keyPath)
@@ -379,7 +379,7 @@ open class BXSelectionController : NSObject
 				}
 				else if let value1 = uniqueValue as? NSObject, let value2 = value as? NSObject, !value1.isEqual(value2)
 				{
-					return NSMultipleValuesMarker
+					return BXSelectionMarker.multipleValues
 				}
 			}
 		}
