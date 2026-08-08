@@ -8,6 +8,7 @@
 
 
 import Foundation
+import Darwin
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -65,35 +66,75 @@ public extension URL
 		
 		#else
 		
-		// On macOS we can convert to a bookmark and then resolve that.
-		//
-		// CFURLCreateBookmarkDataFromAliasRecord is deprecated since macOS 11 and DELIBERATELY still used here -
-		// please do not "fix" this warning, as that would break opening of legacy documents:
-		//
-		// 1) There is no replacement. Every modern API (URL(resolvingAliasFileAt:), NSURL.bookmarkData(withContentsOf:),
-		//    CFURLCreateBookmarkDataFromFile) needs an alias FILE, while all we have here are the raw AliasRecord bytes
-		//    that old documents stored. This function is the only one that accepts them - and Apple's own deprecation
-		//    note explicitly sanctions this use: "This function should only be used to convert Carbon AliasRecords to
-		//    bookmark data".
-		//
-		// 2) The usual trick of silencing the warning with @available(macOS,deprecated:11.0) doesn't work either, because
-		//    Swift only suppresses deprecation warnings inside declarations that are themselves deprecated. The annotation
-		//    would therefore cascade from here to FMMediaFileRef.subPathForLegacyFormat() and on to its Decodable
-		//    init(from:) - which would then warn at every single decoding site.
+		// On macOS we can convert to a bookmark and then resolve that. The conversion is performed by
+		// CFURLCreateBookmarkDataFromAliasRecord, which is called through the _CFURLCreateBookmarkDataFromAliasRecord
+		// helper below - see the comment there for why.
 
-		if let bookmarkRef = CFURLCreateBookmarkDataFromAliasRecord(kCFAllocatorDefault,aliasData as CFData)	// returns a "Unmanaged<CFData>!"
+		if let bookmarkData = _CFURLCreateBookmarkDataFromAliasRecord(aliasData)
 		{
-			let bookmarkData = bookmarkRef.takeRetainedValue() as Data
 			var isStale = false
 			return try URL(resolvingBookmarkData:bookmarkData, options:[.withoutUI,.withoutMounting], relativeTo:nil, bookmarkDataIsStale:&isStale)
 		}
-		
+
 		return nil
-		
+
 		#endif
 	}
-	
+
 }
+
+
+//----------------------------------------------------------------------------------------------------------------------
+
+
+// MARK: -
+
+#if os(macOS)
+
+/// Signature of the C function CFDataRef CFURLCreateBookmarkDataFromAliasRecord(CFAllocatorRef,CFDataRef).
+///
+/// The Unmanaged<CFData>? return type mirrors the "Create Rule", i.e. the returned CFData is already retained
+/// and ownership is transferred to us - hence the takeRetainedValue() below.
+
+private typealias CFURLCreateBookmarkDataFromAliasRecordFunc = @convention(c) (CFAllocator?,CFData) -> Unmanaged<CFData>?
+
+
+/// Converts the raw bytes of a Carbon AliasRecord to bookmark data.
+///
+/// CFURLCreateBookmarkDataFromAliasRecord is deprecated since macOS 11 and DELIBERATELY still used here - please do
+/// not "fix" this, as that would break opening of legacy documents:
+///
+/// 1) There is no replacement. Every modern API (URL(resolvingAliasFileAt:), NSURL.bookmarkData(withContentsOf:),
+///    CFURLCreateBookmarkDataFromFile) needs an alias FILE, while all we have here are the raw AliasRecord bytes
+///    that old documents stored. This function is the only one that accepts them - and Apple's own deprecation
+///    note explicitly sanctions this use: "This function should only be used to convert Carbon AliasRecords to
+///    bookmark data".
+///
+/// 2) The usual trick of silencing the warning with @available(macOS,deprecated:11.0) doesn't work either, because
+///    Swift only suppresses deprecation warnings inside declarations that are themselves deprecated. The annotation
+///    would therefore cascade from here to FMMediaFileRef.subPathForLegacyFormat() and on to its Decodable
+///    init(from:) - which would then warn at every single decoding site.
+///
+/// For this reason the function is not called directly, but looked up at runtime with dlsym - the same technique
+/// that swift_demangle() in String+demangle.swift uses. Since the compiler never sees the deprecated declaration,
+/// it cannot warn about it. Behavior is unchanged, we still end up in the exact same CoreFoundation function.
+/// The tradeoff is that the call is no longer checked at compile time: should Apple ever remove the symbol, this
+/// silently returns nil (legacy AliasRecords no longer resolve) instead of failing the build.
+/// - parameter aliasData: Data containing an AliasRecord
+/// - returns: The equivalent bookmark data, or nil if the conversion failed
+
+private func _CFURLCreateBookmarkDataFromAliasRecord(_ aliasData:Data) -> Data?
+{
+	let handle = dlopen(nil,RTLD_NOW)
+
+	guard let symbol = dlsym(handle,"CFURLCreateBookmarkDataFromAliasRecord") else { return nil }
+	let function = unsafeBitCast(symbol, to:CFURLCreateBookmarkDataFromAliasRecordFunc.self)
+	guard let bookmarkRef = function(kCFAllocatorDefault,aliasData as CFData) else { return nil }
+
+	return bookmarkRef.takeRetainedValue() as Data
+}
+
+#endif
 
 
 //----------------------------------------------------------------------------------------------------------------------
