@@ -660,7 +660,7 @@ internal class _NSSelectionProxy : NSObject
 	{
 		self.stopObservingSelectedObjects()
 
-		if let index = self.observers.index(where:{ $0.observer===observer && $0.keyPath==keyPath })
+		if let index = self.observers.firstIndex(where:{ $0.observer===observer && $0.keyPath==keyPath })
 		{
 			self.observers.remove(at:index)
 		}

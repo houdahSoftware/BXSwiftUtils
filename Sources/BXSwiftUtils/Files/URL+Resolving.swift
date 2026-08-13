@@ -26,7 +26,7 @@ public extension URL
 
 	static func resolving(aliasData:Data) throws -> URL?
 	{
-		#if os (iOS) || os(tvOS)
+		#if !os(macOS)
 
 		// Since iOS doesn't support the CFURLCreateBookmarkDataFromAliasRecord function, we first write
 		// the aliasData to a temporary file, which will be deleted after we are done using it.
@@ -43,22 +43,13 @@ public extension URL
 			DispatchQueue.main.async { try? FileManager.default.removeItem(at:tmpURL) }
 		}
 
-		// Make sure that the OS recognizes it as an alias file
+		// Make sure that the OS recognizes it as an alias file. A failure is deliberately ignored here -
+		// we still attempt to resolve the file below.
 
-//		var attrs:[UInt8] = [0x61,0x6C,0x69,0x73,0x4D,0x41,0x43,0x53,0x80,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00]
-//		let attrData = Data(buffer:UnsafeBufferPointer(start:&attrs, count:attrs.count))
 		let attrs:[UInt8] = [0x61,0x6C,0x69,0x73,0x4D,0x41,0x43,0x53,0x80,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00]
-		let attrData = Data(bytes:attrs)
+		let attrData = Data(attrs)
 
-		_ = tmpURL.withUnsafeFileSystemRepresentation
-		{
-			path in
-
-			attrData.withUnsafeBytes
-			{
-				setxattr(path,"com.apple.FinderInfo", $0, attrData.count, 0,0)
-			}
-		}
+		try? tmpURL.setExtendedAttribute(attrData, forName:"com.apple.FinderInfo")
 
 		// Then resolve the aliasFile (on disk) to a URL
 
