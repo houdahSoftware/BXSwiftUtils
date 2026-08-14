@@ -17,12 +17,12 @@ public extension Date
 {
 	/// Checks if two Dates are almost the same
 	
-    static func ~=(lhs:Date, rhs:Date) -> Bool
+    static func isAlmostEqual(_ lhs:Date,_ rhs:Date, tolerance:TimeInterval = Self.dateComparisonTolerance) -> Bool
     {
-        return abs(lhs.timeIntervalSince1970 - rhs.timeIntervalSince1970) < dateComparisonTolerance
+        return abs(lhs.timeIntervalSince1970 - rhs.timeIntervalSince1970) < tolerance
     }
     
-	private static let dateComparisonTolerance:TimeInterval = 1.0
+	static let dateComparisonTolerance:TimeInterval = 1.0
 }
 
 
