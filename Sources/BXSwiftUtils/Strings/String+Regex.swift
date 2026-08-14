@@ -40,14 +40,6 @@ public extension String
 	}
 	
 	
-	/// Returns true if a string has at least one match for the supplied regex pattern
-	
-	static func ~= (_ string: String, _ pattern: String) -> Bool
-	{
-		return !string.regexMatches(for:pattern).isEmpty
-	}
-	
-	
 	/// Returns a version of the string that has all HTML tags stripped away
 	
 	func strippingHTMLTags() -> String

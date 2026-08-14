@@ -32,11 +32,4 @@ class String_RegexTests: XCTestCase
     	let matches = str.regexMatches(for:"ABC")
         XCTAssertEqual(matches.count,3)
     }
-	
-    func testOperator()
-    {
-    	let str = "Bla Laber ABC Schwafel Sülz"
-    	let matches = str ~= "ABC"
-        XCTAssertEqual(matches,true)
-    }
 }
