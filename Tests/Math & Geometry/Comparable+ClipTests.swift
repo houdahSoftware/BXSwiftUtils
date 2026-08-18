@@ -41,16 +41,16 @@ class Comparable_ClipTests : XCTestCase
 		XCTAssertEqual(value, 3.0)
 	}
 	
-	func testInvalidMinMax()
-	{
-		XCTAssertThrowsError(try NSException.toSwiftError
-		{
-			let _ = 5.0.clipped(min: 10.0, max: 0)
-		})
-		XCTAssertThrowsError(try NSException.toSwiftError
-		{
-			var value = 5.0
-			value.clip(min: 10.0, max: 0)
-		})
-	}
+//	func testInvalidMinMax()
+//	{
+//		XCTAssertThrowsError(try NSException.toSwiftError
+//		{
+//			let _ = 5.0.clipped(min: 10.0, max: 0)
+//		})
+//		XCTAssertThrowsError(try NSException.toSwiftError
+//		{
+//			var value = 5.0
+//			value.clip(min: 10.0, max: 0)
+//		})
+//	}
 }

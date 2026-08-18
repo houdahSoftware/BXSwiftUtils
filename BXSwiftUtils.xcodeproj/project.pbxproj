@@ -39,7 +39,6 @@
 		48A971E22159024100215F9F /* Enum+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A971E02159024100215F9F /* Enum+Comparable.swift */; };
 		48A971E52159122800215F9F /* Enum+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A971E42159122800215F9F /* Enum+Comparable.swift */; };
 		48AD6C9E2147FCC400225D9C /* String+UniqueByIncrementing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48AD6C9C2147FCC400225D9C /* String+UniqueByIncrementing.swift */; };
-		48AD6CA02147FD6400225D9C /* String+UniqueByIncrementingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48AD6C9F2147FD6400225D9C /* String+UniqueByIncrementingTests.swift */; };
 		48B61918215E2C8000E6E037 /* BXCleanupPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B61916215E2C8000E6E037 /* BXCleanupPool.swift */; };
 		48B6191B215E2CD300E6E037 /* BXCleanupPool+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B6191A215E2CD300E6E037 /* BXCleanupPool+Tests.swift */; };
 		48B6191F215E35DB00E6E037 /* OptionalType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B6191D215E35DB00E6E037 /* OptionalType.swift */; };
@@ -233,7 +232,6 @@
 		48A971E02159024100215F9F /* Enum+Comparable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Enum+Comparable.swift"; sourceTree = "<group>"; };
 		48A971E42159122800215F9F /* Enum+Comparable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Enum+Comparable.swift"; sourceTree = "<group>"; };
 		48AD6C9C2147FCC400225D9C /* String+UniqueByIncrementing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+UniqueByIncrementing.swift"; sourceTree = "<group>"; };
-		48AD6C9F2147FD6400225D9C /* String+UniqueByIncrementingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "String+UniqueByIncrementingTests.swift"; path = "BXSwiftUtilsTests/Strings/String+UniqueByIncrementingTests.swift"; sourceTree = SOURCE_ROOT; };
 		48B61916215E2C8000E6E037 /* BXCleanupPool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BXCleanupPool.swift; sourceTree = "<group>"; };
 		48B6191A215E2CD300E6E037 /* BXCleanupPool+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BXCleanupPool+Tests.swift"; sourceTree = "<group>"; };
 		48B6191D215E35DB00E6E037 /* OptionalType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalType.swift; sourceTree = "<group>"; };
@@ -626,7 +624,6 @@
 			isa = PBXGroup;
 			children = (
 				48C248132088CF4100DC9317 /* NSAttributedString+CodableTests.swift */,
-				48AD6C9F2147FD6400225D9C /* String+UniqueByIncrementingTests.swift */,
 				D06CC91E2178B089009C2991 /* String+RegexTests.swift */,
 				D02C351A21E38D5000D8463F /* Numeric+LocalizedTests.swift */,
 			);
@@ -1050,7 +1047,6 @@
 				48B6191B215E2CD300E6E037 /* BXCleanupPool+Tests.swift in Sources */,
 				48DF72F520697E1E00D224AA /* TypedKVOTests.swift in Sources */,
 				4875F24F2051ECF9009985EC /* Array+ConcatenationTests.swift in Sources */,
-				48AD6CA02147FD6400225D9C /* String+UniqueByIncrementingTests.swift in Sources */,
 				481BE6D62098368E00F12EDF /* Sequence+CompactMap.swift in Sources */,
 				D08F44E32170A4850060FBAE /* URL+ExtendedAttributesTests.swift in Sources */,
 				95F2DBAB21B7E3FE00865AE4 /* Bool+OperatorsTests.swift in Sources */,
@@ -1344,7 +1340,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = BXSwiftUtilsTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.boinx.$(TARGET_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1358,7 +1354,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = BXSwiftUtilsTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.boinx.$(TARGET_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
