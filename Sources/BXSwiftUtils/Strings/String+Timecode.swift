@@ -205,14 +205,15 @@ extension String
 		{
 			let trimmed = component.trimmingCharacters(in:.whitespaces)
 			
-			// A component may not carry its own sign. The leading one has already been removed, so a sign here
-			// is a PER-COMPONENT sign, which no timecode convention has.
+			// A component must be plain decimal digits, with at most one decimal point. Double(_:) alone is far
+			// more permissive than a timecode should be: it accepts "0x10" as 16, "1e3" as 1000, and "nan" and
+			// "inf" as themselves. None of those is anything a person would type into a timecode field, and each
+			// of them reads as a number that is not the one it looks like.
 			//
-			// Only the first character is examined, so an exponent like "1e+3" is unaffected - and testing the
-			// character rather than the parsed value is what makes "+30" as wrong as "-30", which is the rule as
-			// stated rather than only the half of it that produces a negative number.
+			// This also subsumes the per-component sign rule - a "+" or "-" is not a digit - so there is no
+			// separate check for it.
 			
-			guard !trimmed.hasPrefix("-"), !trimmed.hasPrefix("+") else { return nil }
+			guard Self.isDecimalComponent(trimmed) else { return nil }
 			guard let v = Double(trimmed) else { return nil }
 			
 			value += factors[index] * v
@@ -226,6 +227,55 @@ extension String
 		guard value.isFinite else { return nil }
 		
 		return sign * value
+	}
+
+
+	/// Returns true if the string is plain decimal digits with at most one decimal point, e.g. "30", "05" or
+	/// "05.500".
+	///
+	/// Written out rather than handed to Double(_:) because that parser is deliberately liberal - it takes hex,
+	/// exponents, and the words "nan" and "inf" - and a timecode component is none of those things.
+	///
+	/// ASCII digits only. `Character.isNumber` is true for other scripts' digits too, and "٥" is not something a
+	/// timecode field should quietly accept as five.
+	///
+	/// Two parts of this cannot be caught by a test, because Double(_:) happens to reject the same input a moment
+	/// later: the ASCII restriction (it parses neither "٥" nor the full width "１") and the single-point rule (it
+	/// rejects "1.2.3"). They are kept anyway, because this predicate answers "is this a plain decimal component"
+	/// and it should answer correctly on its own - leaning on the parser downstream would make it wrong in a way
+	/// that only shows up when someone stops calling the parser. The parts that ARE load-bearing are the ones
+	/// where Double is more liberal than a timecode: it takes "0x10", "1e3", "nan", "inf", and both "5." and ".5".
+	
+	private static func isDecimalComponent(_ string:String) -> Bool
+	{
+		var digitsBeforePoint = 0
+		var digitsAfterPoint = 0
+		var seenPoint = false
+		
+		for character in string
+		{
+			if character == "."
+			{
+				guard !seenPoint else { return false }
+				seenPoint = true
+			}
+			else if character.isASCII, character.isNumber
+			{
+				if seenPoint { digitsAfterPoint += 1 } else { digitsBeforePoint += 1 }
+			}
+			else
+			{
+				return false
+			}
+		}
+		
+		// "5." and ".5" are both rejected: a timecode component has digits on both sides of its point, or no
+		// point at all.
+		
+		guard digitsBeforePoint > 0 else { return false }
+		guard !seenPoint || digitsAfterPoint > 0 else { return false }
+		
+		return true
 	}
 
 
