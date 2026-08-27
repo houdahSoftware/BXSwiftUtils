@@ -138,8 +138,15 @@ extension String
 {
 	/// Converts a timecode string of format "HH:MM:SS.sss" to the time in seconds, or nil if it is not one.
 	///
-	/// Components are read right to left, each worth sixty times the one before, so a string may carry as few or
-	/// as many as it likes: "90", "1:30" and "0:01:30" all mean ninety seconds.
+	/// Components are read right to left as seconds, minutes, hours and days, so a string may carry as few of them
+	/// as it likes: "90", "1:30" and "0:01:30" all mean ninety seconds.
+	///
+	/// The fourth component is DAYS, worth 24 hours. It used to be worth 60 hours: the old loop simply multiplied
+	/// its factor by sixty for every component, which is right up to hours and wrong after that. "1:00:00:00" came
+	/// back as 216000 seconds instead of 86400.
+	///
+	/// A fifth component has no meaning at all, so more than four is rejected rather than silently scaled by
+	/// another sixty.
 	///
 	/// EVERY component has to be a number. This used to be lenient in a way that produced wrong answers rather
 	/// than no answer: an unreadable component was skipped while its sixty-times factor still advanced, so the
@@ -156,18 +163,26 @@ extension String
 	
 	public func timecodeValue() -> Double?
 	{
+		// Seconds, minutes, hours, days. Spelled out rather than derived by repeatedly multiplying by sixty,
+		// because that is precisely where the old version went wrong - the step from hours to days is 24, not 60.
+		
+		let factors:[Double] = [1.0, 60.0, 3600.0, 86400.0]
+		
 		var value = 0.0
-		var factor = 1.0
-		let components = self.components(separatedBy:":").reversed()
+		let components = self.components(separatedBy:":")
+		
+		// Load-bearing, not just semantic: the loop indexes `factors` directly, so without this a fifth component
+		// would run off the end of the array and trap rather than return nil.
+		
+		guard components.count <= factors.count else { return nil }
 
-		for component in components
+		for (index,component) in components.reversed().enumerated()
 		{
 			let trimmed = component.trimmingCharacters(in:.whitespaces)
 			
 			guard let v = Double(trimmed) else { return nil }
 			
-			value += factor * v
-			factor *= 60.0
+			value += factors[index] * v
 		}
 		
 		// One check at the end covers both ways the result can go non-finite: a component that spelled "nan" or
