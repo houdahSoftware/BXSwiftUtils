@@ -45,6 +45,13 @@ extension Double
 	
 	public static let maximumTimecodeSeconds = 1.0e15
 	
+	/// The largest tick count that can be converted to Int.
+	///
+	/// `maximumTimecodeSeconds` alone is not enough, because the seconds are multiplied by the frame rate before
+	/// the conversion - and `fps` is a caller-supplied Int, so a large enough one overflows even a modest duration.
+	
+	public static let maximumTimecodeTicks = 9.0e18
+	
 	
 	/// Converts the number of seconds into a timecode string of format "HH:MM:SS.ff"
 	///
@@ -54,6 +61,8 @@ extension Double
 	///
 	/// A negative value is formatted from its magnitude with a leading minus, e.g. "-0:00:05.500". Previously the
 	/// sign leaked into the individual fields and produced unparseable output like "0:00:-5.-500".
+	///
+	/// A frame rate of zero or less has no meaning and yields the placeholder rather than dividing by it.
 	///
 	/// The `isFinite` test is deliberately redundant: `abs(nan) <= x` is already false, since every comparison
 	/// against NaN is, and an infinity exceeds any ceiling. It is kept because it states the intent - a mutation
