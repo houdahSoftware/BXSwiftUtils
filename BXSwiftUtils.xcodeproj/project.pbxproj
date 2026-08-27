@@ -114,6 +114,7 @@
 		D05E8E6C2D7AE53F00E40DB2 /* NSException+catch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05E8E6B2D7AE53F00E40DB2 /* NSException+catch.swift */; };
 		D0606C9520A5CFB50090D981 /* BXInstanceInfoMixin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0606C9320A5CFB50090D981 /* BXInstanceInfoMixin.swift */; };
 		D06CC91F2178B089009C2991 /* String+RegexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CC91E2178B089009C2991 /* String+RegexTests.swift */; };
+		D0AB91000000000000000002 /* String+TimecodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AB91000000000000000001 /* String+TimecodeTests.swift */; };
 		D06CC9232178C5F9009C2991 /* Data+Mutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CC9222178C5F9009C2991 /* Data+Mutation.swift */; };
 		D06CC9272178D209009C2991 /* Data+MutationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CC9262178D209009C2991 /* Data+MutationTests.swift */; };
 		D06CC92B2178EADA009C2991 /* Data+Checksum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CC92A2178EADA009C2991 /* Data+Checksum.swift */; };
@@ -312,6 +313,7 @@
 		D05E8E6B2D7AE53F00E40DB2 /* NSException+catch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSException+catch.swift"; sourceTree = "<group>"; };
 		D0606C9320A5CFB50090D981 /* BXInstanceInfoMixin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BXInstanceInfoMixin.swift; sourceTree = "<group>"; };
 		D06CC91E2178B089009C2991 /* String+RegexTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+RegexTests.swift"; sourceTree = "<group>"; };
+		D0AB91000000000000000001 /* String+TimecodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+TimecodeTests.swift"; sourceTree = "<group>"; };
 		D06CC9222178C5F9009C2991 /* Data+Mutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Mutation.swift"; sourceTree = "<group>"; };
 		D06CC9262178D209009C2991 /* Data+MutationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+MutationTests.swift"; sourceTree = "<group>"; };
 		D06CC92A2178EADA009C2991 /* Data+Checksum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Checksum.swift"; sourceTree = "<group>"; };
@@ -628,6 +630,7 @@
 			children = (
 				48C248132088CF4100DC9317 /* NSAttributedString+CodableTests.swift */,
 				D06CC91E2178B089009C2991 /* String+RegexTests.swift */,
+				D0AB91000000000000000001 /* String+TimecodeTests.swift */,
 				D02C351A21E38D5000D8463F /* Numeric+LocalizedTests.swift */,
 			);
 			path = Strings;
@@ -1033,6 +1036,7 @@
 				4875F2552051EF7F009985EC /* Collection+SafeAccessTests.swift in Sources */,
 				484D065620592898003C6CA3 /* Array+AllEqualTests.swift in Sources */,
 				D06CC91F2178B089009C2991 /* String+RegexTests.swift in Sources */,
+				D0AB91000000000000000002 /* String+TimecodeTests.swift in Sources */,
 				D06CC9272178D209009C2991 /* Data+MutationTests.swift in Sources */,
 				48DE068D20876E52000246CD /* Dictionary+EnumKeysTests.swift in Sources */,
 				48D9E36121A6B75E0057B930 /* Comparable+ClipTests.swift in Sources */,
