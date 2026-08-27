@@ -148,6 +148,15 @@ extension String
 	/// A fifth component has no meaning at all, so more than four is rejected rather than silently scaled by
 	/// another sixty.
 	///
+	/// A leading "-" or "+" applies to the WHOLE timecode, which is how every system that has a signed timecode
+	/// writes it: SMPTE has no negative form at all, the NLEs display offsets as "-01:00:00:00", and ISO 8601
+	/// durations are "-PT1M30S". An individual component may NOT carry a sign - "0:-2:-1" is rejected rather than
+	/// quietly subtracting the middle of a timecode from its end.
+	///
+	/// This also closes a round trip hole. `timecodeString` writes a negative duration as "-0:00:05.500", and that
+	/// used to parse back as POSITIVE 5.5: the minus landed on a "-0" hours component, and -0.0 times 3600 is
+	/// -0.0, so the sign disappeared without trace.
+	///
 	/// EVERY component has to be a number. This used to be lenient in a way that produced wrong answers rather
 	/// than no answer: an unreadable component was skipped while its sixty-times factor still advanced, so the
 	/// remaining components kept their place value. A single leading space was enough - `Double(" 1")` is nil, so
@@ -168,8 +177,24 @@ extension String
 		
 		let factors:[Double] = [1.0, 60.0, 3600.0, 86400.0]
 		
+		// The sign is taken off the front once, before anything is split. Leaving it attached would make it a
+		// property of whichever component happened to come first, which is both wrong and invisible.
+		
+		var body = self.trimmingCharacters(in:.whitespaces)
+		var sign = 1.0
+		
+		if body.hasPrefix("-")
+		{
+			sign = -1.0
+			body.removeFirst()
+		}
+		else if body.hasPrefix("+")
+		{
+			body.removeFirst()
+		}
+		
 		var value = 0.0
-		let components = self.components(separatedBy:":")
+		let components = body.components(separatedBy:":")
 		
 		// Load-bearing, not just semantic: the loop indexes `factors` directly, so without this a fifth component
 		// would run off the end of the array and trap rather than return nil.
@@ -180,6 +205,14 @@ extension String
 		{
 			let trimmed = component.trimmingCharacters(in:.whitespaces)
 			
+			// A component may not carry its own sign. The leading one has already been removed, so a sign here
+			// is a PER-COMPONENT sign, which no timecode convention has.
+			//
+			// Only the first character is examined, so an exponent like "1e+3" is unaffected - and testing the
+			// character rather than the parsed value is what makes "+30" as wrong as "-30", which is the rule as
+			// stated rather than only the half of it that produces a negative number.
+			
+			guard !trimmed.hasPrefix("-"), !trimmed.hasPrefix("+") else { return nil }
 			guard let v = Double(trimmed) else { return nil }
 			
 			value += factors[index] * v
@@ -192,7 +225,7 @@ extension String
 		
 		guard value.isFinite else { return nil }
 		
-		return value
+		return sign * value
 	}
 
 
