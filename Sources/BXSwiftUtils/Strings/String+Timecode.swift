@@ -121,9 +121,25 @@ extension Double
 
 extension String
 {
-	/// Converts a timecode string of format "HH:MM:SS.sss" to the time in seconds (as a Double)
+	/// Converts a timecode string of format "HH:MM:SS.sss" to the time in seconds, or nil if it is not one.
+	///
+	/// Components are read right to left, each worth sixty times the one before, so a string may carry as few or
+	/// as many as it likes: "90", "1:30" and "0:01:30" all mean ninety seconds.
+	///
+	/// EVERY component has to be a number. This used to be lenient in a way that produced wrong answers rather
+	/// than no answer: an unreadable component was skipped while its sixty-times factor still advanced, so the
+	/// remaining components kept their place value. A single leading space was enough - `Double(" 1")` is nil, so
+	/// " 1:30" silently lost its minutes and came back as 30 seconds instead of 90.
+	///
+	/// Surrounding whitespace is now trimmed, so " 1:30" is simply ninety seconds. Anything still unreadable makes
+	/// the whole string invalid.
+	///
+	/// A non-finite RESULT is rejected too. Swift's Double parser accepts "nan", "inf" and "infinity", so without
+	/// this "inf:30" would yield an infinity and hand it to whatever consumed the result - and even all-finite
+	/// components can overflow, as "1e308:0" does. (The parser also accepts hex like "0x10" and exponents like
+	/// "1e3"; those are left alone, since they at least denote a real, finite number.)
 	
-	public func timecodeValueInSeconds() -> Double
+	public func timecodeValue() -> Double?
 	{
 		var value = 0.0
 		var factor = 1.0
@@ -131,15 +147,35 @@ extension String
 
 		for component in components
 		{
-			if let v = Double(component)
-			{
-				value += factor * v
-			}
+			let trimmed = component.trimmingCharacters(in:.whitespaces)
 			
+			guard let v = Double(trimmed) else { return nil }
+			
+			value += factor * v
 			factor *= 60.0
 		}
 		
+		// One check at the end covers both ways the result can go non-finite: a component that spelled "nan" or
+		// "inf" (any such component makes the total non-finite too), and finite components whose sum overflows -
+		// "1e308:0" is all finite and still lands on infinity. A per-component test would only duplicate the
+		// first half, and nothing could tell the two versions apart.
+		
+		guard value.isFinite else { return nil }
+		
 		return value
+	}
+
+
+	/// Converts a timecode string of format "HH:MM:SS.sss" to the time in seconds, treating anything unreadable
+	/// as zero.
+	///
+	/// Kept for callers that have no way to report a failure, such as a value transformer. Prefer
+	/// `timecodeValue()` where nil can be acted on - zero is a perfectly ordinary timecode, so this cannot
+	/// distinguish "0:00:00" from nonsense.
+	
+	public func timecodeValueInSeconds() -> Double
+	{
+		return self.timecodeValue() ?? 0.0
 	}
 }
 
