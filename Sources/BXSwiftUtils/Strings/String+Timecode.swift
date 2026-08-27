@@ -62,27 +62,37 @@ extension Double
 	
 	public func timecodeString(fps: Int = 1000) -> String
 	{
-		guard self.isFinite, abs(self) <= Self.maximumTimecodeSeconds
+		guard self.isFinite, abs(self) <= Self.maximumTimecodeSeconds, fps > 0
 		else { return Self.invalidTimecodeString(fps:fps) }
 		
-		let isNegative = self < 0.0
-		var value = abs(self)
+		// Decompose from an integer tick count instead of repeatedly subtracting and dividing in floating point.
+		// The old arithmetic accumulated representation error: 3599.999 came out as "0:59:59.998", because 0.999
+		// times 1000 is 998.99999999 in binary and Int(_:) truncated it - losing a millisecond that the value
+		// genuinely had. Scaling and rounding ONCE, up front, removes that.
+		//
+		// It also makes the carry work. Rounding the fraction on its own would produce a field that does not fit:
+		// 59.9999 would round to 1000 thousandths and print "0:00:59.1000". Going through a tick count instead
+		// carries properly into the seconds, so it prints "0:01:00.000".
+		//
+		// Note this rounds to the NEAREST tick rather than truncating towards the current one. A value sitting
+		// exactly on a half tick therefore rounds away from zero - at 25 fps, 2.5s is frame 62.5 and becomes 63.
 		
-		let ff = Int(value.truncatingRemainder(dividingBy:1.0) * Double(fps))
-		let SS = Int(value.truncatingRemainder(dividingBy:60.0))
+		let scaled = (abs(self) * Double(fps)).rounded()
 		
-		value -= Double(SS)
-		value /= 60.0
-		let MM = Int(value.truncatingRemainder(dividingBy:60.0))
+		guard scaled <= Self.maximumTimecodeTicks else { return Self.invalidTimecodeString(fps:fps) }
 		
-		value -= Double(MM)
-		value /= 60.0
-		let HH = Int(value)
+		let ticks = Int(scaled)
+		let totalSeconds = ticks / fps
+		
+		let ff = ticks % fps
+		let SS = totalSeconds % 60
+		let MM = (totalSeconds / 60) % 60
+		let HH = totalSeconds / 3600
 		
 		let format = fps > 100 ? "%i:%02i:%02i.%03i" : "%i:%02i:%02i.%02i"
 		let string = NSString(format:format as NSString,HH,MM,SS,ff) as String
 		
-		return isNegative ? "-" + string : string
+		return self < 0.0 ? "-" + string : string
 	}
 
 
@@ -96,22 +106,18 @@ extension Double
 		guard self.isFinite, abs(self) <= Self.maximumTimecodeSeconds
 		else { return Self.invalidShortTimecodeString }
 		
-		let isNegative = self < 0.0
-		var value = floor(abs(self))
+		// Whole seconds decompose exactly in integer arithmetic, so the same float error that cost
+		// timecodeString a millisecond cannot arise here either.
 		
-		let SS = Int(value.truncatingRemainder(dividingBy:60.0))
+		let totalSeconds = Int(floor(abs(self)))
 		
-		value -= Double(SS)
-		value /= 60.0
-		let MM = Int(value.truncatingRemainder(dividingBy:60.0))
-		
-		value -= Double(MM)
-		value /= 60.0
-		let HH = Int(value)
+		let SS = totalSeconds % 60
+		let MM = (totalSeconds / 60) % 60
+		let HH = totalSeconds / 3600
 		
 		let string = NSString(format:"%i:%02i:%02i",HH,MM,SS) as String
 		
-		return isNegative ? "-" + string : string
+		return self < 0.0 ? "-" + string : string
 	}
 }
 
