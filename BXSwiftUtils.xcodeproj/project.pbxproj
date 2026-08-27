@@ -79,6 +79,7 @@
 		D0157ED0227DB41F00E34D65 /* Bundle+Localizations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0157ECF227DB41F00E34D65 /* Bundle+Localizations.swift */; };
 		D015BC4B280C5D5700CCB1E2 /* String+MetadataKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D015BC4A280C5D5700CCB1E2 /* String+MetadataKeys.swift */; };
 		D015BC4D280DAD7F00CCB1E2 /* FloatingPoint+isEqual.swift in Sources */ = {isa = PBXBuildFile; fileRef = D015BC4C280DAD7E00CCB1E2 /* FloatingPoint+isEqual.swift */; };
+		D0AB93000000000000000002 /* IsAboutEqual.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AB93000000000000000001 /* IsAboutEqual.swift */; };
 		D0177B1926F9F0CB0088BF48 /* Array+safeInsert.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0177B1826F9F0CB0088BF48 /* Array+safeInsert.swift */; };
 		D0177B1B26FA11660088BF48 /* String+demangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0177B1A26FA11660088BF48 /* String+demangle.swift */; };
 		D01B57E22E6AC96100279E42 /* BXFileCleanupPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01B57E12E6AC96100279E42 /* BXFileCleanupPool.swift */; };
@@ -115,6 +116,7 @@
 		D0606C9520A5CFB50090D981 /* BXInstanceInfoMixin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0606C9320A5CFB50090D981 /* BXInstanceInfoMixin.swift */; };
 		D06CC91F2178B089009C2991 /* String+RegexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CC91E2178B089009C2991 /* String+RegexTests.swift */; };
 		D0AB91000000000000000002 /* String+TimecodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AB91000000000000000001 /* String+TimecodeTests.swift */; };
+		D0AB93000000000000000012 /* IsAboutEqualTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AB93000000000000000011 /* IsAboutEqualTests.swift */; };
 		D06CC9232178C5F9009C2991 /* Data+Mutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CC9222178C5F9009C2991 /* Data+Mutation.swift */; };
 		D06CC9272178D209009C2991 /* Data+MutationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CC9262178D209009C2991 /* Data+MutationTests.swift */; };
 		D06CC92B2178EADA009C2991 /* Data+Checksum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CC92A2178EADA009C2991 /* Data+Checksum.swift */; };
@@ -274,6 +276,7 @@
 		D0157ECF227DB41F00E34D65 /* Bundle+Localizations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Localizations.swift"; sourceTree = "<group>"; };
 		D015BC4A280C5D5700CCB1E2 /* String+MetadataKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+MetadataKeys.swift"; sourceTree = "<group>"; };
 		D015BC4C280DAD7E00CCB1E2 /* FloatingPoint+isEqual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FloatingPoint+isEqual.swift"; sourceTree = "<group>"; };
+		D0AB93000000000000000001 /* IsAboutEqual.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IsAboutEqual.swift"; sourceTree = "<group>"; };
 		D0177B1826F9F0CB0088BF48 /* Array+safeInsert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+safeInsert.swift"; sourceTree = "<group>"; };
 		D0177B1A26FA11660088BF48 /* String+demangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+demangle.swift"; sourceTree = "<group>"; };
 		D01B57E12E6AC96100279E42 /* BXFileCleanupPool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BXFileCleanupPool.swift; sourceTree = "<group>"; };
@@ -314,6 +317,7 @@
 		D0606C9320A5CFB50090D981 /* BXInstanceInfoMixin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BXInstanceInfoMixin.swift; sourceTree = "<group>"; };
 		D06CC91E2178B089009C2991 /* String+RegexTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+RegexTests.swift"; sourceTree = "<group>"; };
 		D0AB91000000000000000001 /* String+TimecodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+TimecodeTests.swift"; sourceTree = "<group>"; };
+		D0AB93000000000000000011 /* IsAboutEqualTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IsAboutEqualTests.swift"; sourceTree = "<group>"; };
 		D06CC9222178C5F9009C2991 /* Data+Mutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Mutation.swift"; sourceTree = "<group>"; };
 		D06CC9262178D209009C2991 /* Data+MutationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+MutationTests.swift"; sourceTree = "<group>"; };
 		D06CC92A2178EADA009C2991 /* Data+Checksum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Checksum.swift"; sourceTree = "<group>"; };
@@ -640,6 +644,7 @@
 			isa = PBXGroup;
 			children = (
 				48D9E36021A6B75E0057B930 /* Comparable+ClipTests.swift */,
+				D0AB93000000000000000011 /* IsAboutEqualTests.swift */,
 				95F2DBA921B7E3C200865AE4 /* Bool+OperatorsTests.swift */,
 			);
 			path = "Math & Geometry";
@@ -749,6 +754,7 @@
 				D089124A215B723C00403100 /* CGRect+String.swift */,
 				D0839A6F280EF42C00D2F64E /* FloatingPoint+Safety.swift */,
 				D015BC4C280DAD7E00CCB1E2 /* FloatingPoint+isEqual.swift */,
+				D0AB93000000000000000001 /* IsAboutEqual.swift */,
 				481A25BC2175D36000FB8E9A /* CGPath+RoundedRect.swift */,
 				481A25BF2175D38700FB8E9A /* CACornerMask+Convenience.swift */,
 				95CBED9221A5B4D100344220 /* Comparable+Clip.swift */,
@@ -1037,6 +1043,7 @@
 				484D065620592898003C6CA3 /* Array+AllEqualTests.swift in Sources */,
 				D06CC91F2178B089009C2991 /* String+RegexTests.swift in Sources */,
 				D0AB91000000000000000002 /* String+TimecodeTests.swift in Sources */,
+				D0AB93000000000000000012 /* IsAboutEqualTests.swift in Sources */,
 				D06CC9272178D209009C2991 /* Data+MutationTests.swift in Sources */,
 				48DE068D20876E52000246CD /* Dictionary+EnumKeysTests.swift in Sources */,
 				48D9E36121A6B75E0057B930 /* Comparable+ClipTests.swift in Sources */,
@@ -1125,6 +1132,7 @@
 				D09B34402B0CF8330082C906 /* Collection+Math.swift in Sources */,
 				D0F6B74C2455C1B0004EC894 /* Optional+logDescription.swift in Sources */,
 				D015BC4D280DAD7F00CCB1E2 /* FloatingPoint+isEqual.swift in Sources */,
+				D0AB93000000000000000002 /* IsAboutEqual.swift in Sources */,
 				487107F020A9B8E000120024 /* BXAtomic.swift in Sources */,
 				48A971E22159024100215F9F /* Enum+Comparable.swift in Sources */,
 				D06F462E209073D0000986B8 /* Collection+Codable.swift in Sources */,

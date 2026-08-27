@@ -21,6 +21,11 @@ import Foundation
 
 struct TimecodeTests
 {
+	/// A round trip is one multiplication into ticks and one division back out, so a value absorbs two roundings.
+
+	static let epsilon = 1e-9
+
+
 	// MARK: - Formatting
 
 
@@ -612,7 +617,7 @@ struct TimecodeTests
 	{
 		let string = seconds.timecodeString()
 
-		#expect(abs(string.timecodeValueInSeconds() - seconds) < 1e-9, "\(seconds) became \(string)")
+		#expect(isAboutEqual(string.timecodeValueInSeconds(), seconds, epsilon:Self.epsilon), "\(seconds) became \(string)")
 	}
 
 
